@@ -6,6 +6,7 @@ const panelBg = document.querySelector(".panelBg");
 
 let panelCount = 0;
 
+// criar quadro
 const createPanel = (title) => {
   const section = document.createElement("section");
   const header = document.createElement("header");

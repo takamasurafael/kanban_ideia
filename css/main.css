@@ -3,6 +3,7 @@
   --white: rgb(245, 245, 245);
   --gray: rgb(224, 224, 224);
   --DarkGray: rgb(99, 99, 99);
+  --purple: rgb(121, 77, 155);
 }
 
 body {
@@ -86,18 +87,39 @@ body {
 .sectionContent {
   background: var(--white);
   margin: 1rem;
-  border: 1.7px solid rgb(121, 77, 155);
+  border: 1.7px solid var(--purple);
   border-radius: 10px;
+}
+
+.itemContent {
+  position: relative;
 }
 
 .itemContent .headerContent {
   display: flex;
   justify-content: center;
-  background: rgb(121, 77, 155);
+  background: var(--purple);
   color: var(--white);
   height: 1.5rem;
   width: 100%;
   border-radius: 6px 6px 0 0;
+}
+
+.itemContent .headerContent span {
+  display: none;
+}
+
+.itemContent:hover span {
+  display: flex;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  padding: 0.2rem;
+  font-size: 0.6em;
+  background: var(--white);
+  color: var(--purple);
+  border: 1.5px solid var(--purple);
+  border-radius: 50%;
 }
 
 .itemContent .taskContent {
