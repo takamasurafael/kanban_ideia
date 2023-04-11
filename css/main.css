@@ -1,0 +1,110 @@
+:root {
+  --black: rgb(15, 15, 15);
+  --white: rgb(245, 245, 245);
+  --gray: rgb(224, 224, 224);
+  --DarkGray: rgb(99, 99, 99);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  background: var(--gray);
+  color: var(--white);
+}
+
+.panelBg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--white);
+  min-width: 99vw;
+  max-width: 99vw;
+  min-height: 130vh;
+  margin: 0.5rem;
+  padding: 1.2rem;
+  border-radius: 35px;
+  flex-wrap: wrap;
+}
+
+.parent {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+
+.panel {
+  background: var(--gray);
+  color: black;
+  margin: 0.6rem;
+  border-radius: 15px;
+  height: 20rem;
+  min-width: 15rem;
+  min-height: 20vh;
+}
+
+.panel > header > h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--white);
+  color: var(--DarkGray);
+  min-width: 15rem;
+  min-height: 4.5rem;
+  border-radius: 20px 20px 0 0;
+  font-size: 2em;
+  font-weight: bold;
+  box-shadow: 0rem -0.5rem 0.5rem 0.1rem var(--gray);
+}
+
+.plusMore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--gray);
+  transition: 0.2s;
+}
+
+.plusMore:hover {
+  background: var(--DarkGray);
+  cursor: pointer;
+}
+
+.plusMore:active {
+  background: var(--white);
+}
+
+.sectionContent {
+  background: var(--white);
+  margin: 1rem;
+  border: 1.7px solid rgb(121, 77, 155);
+  border-radius: 10px;
+}
+
+.itemContent .headerContent {
+  display: flex;
+  justify-content: center;
+  background: rgb(121, 77, 155);
+  color: var(--white);
+  height: 1.5rem;
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+}
+
+.itemContent .taskContent {
+  display: flex;
+  padding: 1rem;
+}
+
+.itemContent .taskContent h5 {
+  margin-left: 0.5rem;
+}
