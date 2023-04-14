@@ -1,36 +1,79 @@
-const MAX_PANELS = 4;
-const PANEL_TITLE = "Título";
+const addButtons = document.querySelectorAll(".addItem");
+const cardItems = document.querySelectorAll(".cardItem");
+const cards = document.querySelectorAll(".card");
+const titleCard = document.querySelectorAll(".titleCard");
+const editOptions = document.querySelectorAll("fa-solid", "fa-pen-to-square");
 
-const btnAdd = document.querySelector(".plusMore");
-const panelBg = document.querySelector(".panelBg");
+/* cria uma nova tarefa */
+const addTask = (index) => {
+  const divTask = document.createElement("div");
+  divTask.classList.add("task");
+  divTask.setAttribute("draggable", true); //atributo para arrastar
+  divTask.setAttribute("id", "task-" + index); // identificador para arrastar e soltar
 
-let panelCount = 0;
+  const h4 = document.createElement("h4");
+  h4.innerText = "titulo da tarefa";
 
-// criar quadro
-const createPanel = (title) => {
-  const section = document.createElement("section");
-  const header = document.createElement("header");
-  const h1 = document.createElement("h1");
-  const div = document.createElement("div");
+  const i = document.createElement("i");
+  i.classList.add("fa-solid", "fa-pen-to-square");
 
-  section.classList.add("panel");
-  h1.innerText = title;
-  div.classList.add("sectionContent");
-  header.appendChild(h1);
-  section.appendChild(header);
-  section.appendChild(div);
+  const divTaskContentItem = document.createElement("div");
+  divTaskContentItem.classList.add("taskContentItem");
 
-  return section;
-};
+  const input = document.createElement("input");
+  input.setAttribute("type", "checkbox");
 
-const addPanel = () => {
-  if (panelCount < MAX_PANELS) {
-    const panel = createPanel(PANEL_TITLE);
-    panelBg.appendChild(panel);
-    panelCount++;
+  input.addEventListener("change", () => {
+    if (input.checked) {
+      p.style.textDecoration = "line-through";
+      p.style.fontStyle = "italic";
+    } else {
+      p.style.textDecoration = "none";
+      p.style.fontStyle = "normal";
+    }
+  });
+
+  const p = document.createElement("p");
+  p.innerText = "tarefa 000";
+
+  let h1Element = cardItems[index].querySelector("h1");
+
+  if (h1Element) {
+    cardItems[index].insertBefore(divTask, h1Element.nextSibling);
   } else {
-    alert("Limite de painéis atingido");
+    cardItems[index].insertBefore(divTask, addButtons[index]);
   }
+
+  divTask.appendChild(h4);
+  divTask.appendChild(i);
+  divTask.appendChild(divTaskContentItem);
+  divTaskContentItem.appendChild(input);
+  divTaskContentItem.appendChild(p);
+
+  divTask.addEventListener("dragstart", (event) => {
+    event.dataTransfer.setData("text/plain", event.target.id);
+  });
 };
 
-btnAdd.addEventListener("click", addPanel);
+/* adiciona a nova tarefa dentro do quadro escolhido */
+addButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    addTask(index);
+  });
+});
+
+cards.forEach((card) => {
+  card.addEventListener("dragover", (event) => {
+    event.preventDefault();
+  });
+
+  card.addEventListener("drop", (event) => {
+    event.preventDefault();
+    const taskId = event.dataTransfer.getData("text/plain");
+    const task = document.getElementById(taskId);
+    const cardContent = event.target.closest(".card");
+    const cardItem = cardContent.querySelector(".cardItem");
+
+    cardItem.insertBefore(task, cardItem.querySelector(".addItem"));
+  });
+});
