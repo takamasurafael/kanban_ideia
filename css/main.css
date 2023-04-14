@@ -1,9 +1,13 @@
 :root {
-  --black: rgb(15, 15, 15);
+  --gray: rgb(231, 231, 231);
+  --darkGray: rgb(100, 100, 100);
   --white: rgb(245, 245, 245);
-  --gray: rgb(224, 224, 224);
-  --DarkGray: rgb(99, 99, 99);
-  --purple: rgb(121, 77, 155);
+  --purple: rgb(120, 77, 155);
+  --orange: rgb(244, 137, 55);
+  --red: rgb(235, 46, 74);
+  --blue: rgb(38, 171, 226);
+  --yellow: rgb(253, 213, 8);
+  --green: rgb(31, 177, 91);
 }
 
 body {
@@ -13,120 +17,135 @@ body {
   min-height: 100vh;
 
   background: var(--gray);
-  color: var(--white);
 }
 
-.panelBg {
+main {
   display: flex;
-  justify-content: center;
-  align-items: center;
-
+  min-height: inherit;
+  width: 100vw;
+  min-width: 100vw;
+  max-width: 120vw;
   background: var(--white);
-  min-width: 99vw;
-  max-width: 99vw;
-  min-height: 130vh;
-  margin: 0.5rem;
-  padding: 1.2rem;
-  border-radius: 35px;
-  flex-wrap: wrap;
 }
 
-.parent {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-column-gap: 5px;
-  grid-row-gap: 5px;
-}
-
-.panel {
+.card {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  min-width: calc(100% / 6);
+  margin-left: 0.3rem;
   background: var(--gray);
-  color: black;
-  margin: 0.6rem;
-  border-radius: 15px;
-  height: 20rem;
-  min-width: 15rem;
-  min-height: 20vh;
+  border-radius: 15px 15px 0 0;
 }
 
-.panel > header > h1 {
+.card h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-
   background: var(--white);
-  color: var(--DarkGray);
-  min-width: 15rem;
-  min-height: 4.5rem;
-  border-radius: 20px 20px 0 0;
-  font-size: 2em;
+  color: var(--darkGray);
   font-weight: bold;
-  box-shadow: 0rem -0.5rem 0.5rem 0.1rem var(--gray);
-}
-
-.plusMore {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background: var(--gray);
-  transition: 0.2s;
-}
-
-.plusMore:hover {
-  background: var(--DarkGray);
-  cursor: pointer;
-}
-
-.plusMore:active {
-  background: var(--white);
-}
-
-.sectionContent {
-  background: var(--white);
-  margin: 1rem;
-  border: 1.7px solid var(--purple);
-  border-radius: 10px;
-}
-
-.itemContent {
+  min-height: 3rem;
+  margin-bottom: 1rem;
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0 -5px 5px 0 var(--gray);
+  text-transform: capitalize;
   position: relative;
 }
 
-.itemContent .headerContent {
+.card h1 .fa-pen-to-square {
+  font-size: 0.7em;
+  opacity: 0;
+  transition: 0.2s;
+  position: absolute;
+  right: 2rem;
+}
+
+.card h1:hover .fa-pen-to-square {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.cardItem {
   display: flex;
   justify-content: center;
-  background: var(--purple);
-  color: var(--white);
-  height: 1.5rem;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
-  border-radius: 6px 6px 0 0;
 }
 
-.itemContent .headerContent span {
-  display: none;
-}
-
-.itemContent:hover span {
+.addItem {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  background: var(--white);
+  color: var(--darkGray);
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: 0.2s;
+}
+
+.addItem:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.addItem:active {
+  opacity: 0.9;
+}
+
+.task {
+  width: 90%;
+  margin-bottom: 0.5rem;
+  background: var(--white);
+  border-radius: 7px;
+  border: 1px solid var(--blue);
+  position: relative;
+}
+
+.task h4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  padding: 0.25rem;
+  background: var(--blue);
+  color: var(--white);
+  text-transform: capitalize;
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  position: relative;
+}
+
+.task .fa-pen-to-square {
+  display: flex;
+  opacity: 0;
   position: absolute;
   top: -5px;
   right: -5px;
+  font-size: 0.7em;
+  background: var(--blue);
+  color: var(--white);
   padding: 0.2rem;
-  font-size: 0.6em;
-  background: var(--white);
-  color: var(--purple);
-  border: 1.5px solid var(--purple);
   border-radius: 50%;
+  border: 2px solid var(--white);
+  transition: 0.2s;
 }
 
-.itemContent .taskContent {
+.task:hover .fa-pen-to-square {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.taskContentItem {
   display: flex;
-  padding: 1rem;
+  flex-direction: row;
+  padding: 0.5rem;
 }
 
-.itemContent .taskContent h5 {
-  margin-left: 0.5rem;
+.taskContentItem p {
+  margin-left: 0.25rem;
+  font-size: 0.8em;
 }
