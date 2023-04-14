@@ -4,6 +4,8 @@ const cards = document.querySelectorAll(".card");
 const titleCard = document.querySelectorAll(".titleCard");
 const editOptions = document.querySelectorAll("fa-solid", "fa-pen-to-square");
 
+let tasks = [];
+
 /* cria uma nova tarefa */
 const addTask = (index) => {
   const divTask = document.createElement("div");
@@ -12,10 +14,19 @@ const addTask = (index) => {
   divTask.setAttribute("id", "task-" + index); // identificador para arrastar e soltar
 
   const h4 = document.createElement("h4");
-  h4.innerText = "titulo da tarefa";
+  h4.setAttribute("id", "h4-" + index);
+  const h4Text = prompt("Digite o título da tarefa:") || "Tarefa sem título";
+  h4.innerText = h4Text;
 
   const i = document.createElement("i");
   i.classList.add("fa-solid", "fa-pen-to-square");
+  i.addEventListener("click", () => {
+    // editar modal
+    const h4Text0 = prompt("Qual o título da tarefa?") || "sem título";
+    h4.innerText = h4Text0;
+    const pText0 = prompt("Qual a tarefa?") || "sem conteúdo";
+    p.innerText = pText0;
+  });
 
   const divTaskContentItem = document.createElement("div");
   divTaskContentItem.classList.add("taskContentItem");
@@ -34,7 +45,9 @@ const addTask = (index) => {
   });
 
   const p = document.createElement("p");
-  p.innerText = "tarefa 000";
+  p.setAttribute("id", "p-" + index);
+  const pTextInner = prompt("Qual a tarefa?") || "sem conteúdo";
+  p.innerText = pTextInner;
 
   let h1Element = cardItems[index].querySelector("h1");
 
