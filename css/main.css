@@ -74,7 +74,8 @@ main {
   width: 100%;
 }
 
-.addItem {
+.addItem,
+.addTaskItem {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,16 +88,24 @@ main {
   transition: 0.2s;
 }
 
-.addItem:hover {
+.addTaskItem {
+  margin-top: 0.5rem;
+}
+.addItem:hover,
+.addTaskItem:hover {
   cursor: pointer;
   opacity: 0.7;
 }
 
-.addItem:active {
+.addItem:active,
+.addTaskItem:active {
   opacity: 0.9;
 }
 
 .task {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   width: 90%;
   margin-bottom: 0.5rem;
   background: var(--white);
@@ -139,10 +148,17 @@ main {
   cursor: pointer;
 }
 
-.taskContentItem {
+.divBoxTask {
   display: flex;
   flex-direction: row;
-  padding: 0.5rem;
+  min-width: 100%;
+}
+
+.taskContentItem {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  padding: 0.2rem;
 }
 
 .taskContentItem p {
