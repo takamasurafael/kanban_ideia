@@ -1,190 +1,178 @@
-const addButtons = document.querySelectorAll(".addItem");
-const cardItems = document.querySelectorAll(".cardItem");
-const cards = document.querySelectorAll(".card");
-const titleCard = document.querySelectorAll(".titleCard");
-const editOptions = document.querySelectorAll(".fa-pen-to-square");
-const addTaskItem = document.querySelectorAll(".addTaskItem");
+const card0 = document.querySelector(".card-0");
+const card1 = document.querySelector(".card-1");
+const card2 = document.querySelector(".card-2");
 
-let tasks = [];
+function saveTasks() {
+  localStorage.setItem("card0", JSON.stringify(card0.innerHTML));
+  localStorage.setItem("card1", JSON.stringify(card1.innerHTML));
+  localStorage.setItem("card2", JSON.stringify(card2.innerHTML));
+}
 
-const renderTasks = () => {
-  tasks.forEach((task, index) => {
-    task.tasks.forEach((taskItem) => {
-      const divTask = document.createElement("div");
-      divTask.classList.add("task");
-      divTask.setAttribute("draggable", true);
-      divTask.setAttribute("id", taskItem.id);
+function loadTasks() {
+  if (localStorage.getItem("card0")) {
+    card0.innerHTML = JSON.parse(localStorage.getItem("card0"));
+  }
+  if (localStorage.getItem("card1")) {
+    card1.innerHTML = JSON.parse(localStorage.getItem("card1"));
+  }
+  if (localStorage.getItem("card2")) {
+    card2.innerHTML = JSON.parse(localStorage.getItem("card2"));
+  }
 
-      const h4 = document.createElement("h4");
-      h4.innerText = taskItem.title;
-      divTask.appendChild(h4);
+  const createDiv = {
+    index: 0,
+    div() {
+      const div = document.createElement("div");
+      div.setAttribute("id", `div-${++this.index}`);
+      div.classList.add("task");
+      return div;
+    },
+  };
 
-      const divTaskContentItem = document.createElement("div");
-      divTaskContentItem.classList.add("taskContentItem");
+  const createP = {
+    index: 0,
 
-      const span = document.createElement("span");
-      span.classList.add("addTaskItem");
-      divTask.appendChild(span);
+    p() {
+      const p = document.createElement("p");
+      p.setAttribute("id", `p-${++this.index}`);
 
-      const iPlusAddTaskItem = document.createElement("i");
-      iPlusAddTaskItem.classList.add("fa-solid", "fa-plus");
-      span.appendChild(iPlusAddTaskItem);
+      const input = document.createElement("input");
+      input.type = "text";
+      input.name = `input-${this.index}`;
+      input.placeholder = "Digite a tarefa aqui";
 
-      const h1Element = cardItems[index].querySelector("h1");
-      if (h1Element) {
-        cardItems[index].insertBefore(divTask, h1Element.nextSibling);
-      } else {
-        cardItems[index].insertBefore(divTask, addButtons[index]);
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          p.innerText = event.target.value;
+          saveTasks();
+        }
+      });
+
+      input.addEventListener("blur", (event) => {
+        p.innerText = event.target.value;
+        saveTasks();
+      });
+
+      p.appendChild(input);
+
+      return p;
+    },
+  };
+
+  const createI = {
+    index: 0,
+
+    i() {
+      const i = document.createElement("i");
+      i.setAttribute("id", `i-${++this.index}`);
+      return i;
+    },
+  };
+
+  const createInput = {
+    index: 0,
+
+    input() {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.setAttribute("id", `input-${++this.index}`);
+      return input;
+    },
+  };
+
+  const addTask = document.querySelectorAll(".addItem");
+
+  addTask.forEach((addTask) => {
+    addTask.addEventListener("click", () => {
+      const cardSection = addTask.parentElement;
+
+      const newDiv = createDiv.div();
+      const newP = createP.p();
+
+      // task Options
+      const taskOptions = createDiv.div();
+      taskOptions.classList.add("taskOptions");
+      taskOptions.classList.remove("task");
+
+      // edit the content
+      const taskOptionEdit = createI.i();
+      taskOptionEdit.classList.add("fa-solid", "fa-pen");
+
+      // move the task
+      const taskOptionMove = createI.i();
+      taskOptionMove.classList.add("fa-solid", "fa-up-down-left-right");
+
+      taskOptionMove.addEventListener("click", () => {
+        const cardOptions = document.createElement("div");
+        cardOptions.classList.add("card-options");
+        cardOptions.innerHTML = `
+          <p class="card-option" data-card="0">Para fazer</p>
+          <p class="card-option" data-card="1">Em andamento</p>
+          <p class="card-option" data-card="2">Finalizado</p>
+        `;
+        const task = taskOptionMove.parentElement.parentElement;
+        task.appendChild(cardOptions);
+        const cardOptionElements = cardOptions.querySelectorAll(".card-option");
+        cardOptionElements.forEach((cardOption) => {
+          cardOption.addEventListener("click", () => {
+            const cardNumber = cardOption.dataset.card;
+            const card = document.querySelector(`.card-${cardNumber}`);
+            const taskContent = task.querySelector("p").innerHTML;
+            const newTask = createDiv.div();
+            const newP = createP.p();
+
+            // task Options
+            newP.innerHTML = taskContent;
+
+            newTask.appendChild(newP);
+            newP.appendChild(taskOptions);
+            taskOptions.appendChild(taskOptionEdit);
+            taskOptions.appendChild(taskOptionMove);
+            taskOptions.appendChild(taskOptionDelete);
+
+            card.insertBefore(newTask, card.lastElementChild);
+            task.remove();
+            cardOptions.remove();
+            saveTasks();
+          });
+          saveTasks();
+        });
+        saveTasks();
+      });
+      saveTasks();
+
+      // delete the task
+      const taskOptionDelete = createI.i();
+      taskOptionDelete.classList.add("fa-solid", "fa-delete-left");
+      taskOptionDelete.addEventListener("click", removeTask);
+
+      function removeTask() {
+        const task = this.parentElement.parentElement;
+        task.remove();
+        saveTasks();
       }
 
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = "input-" + index;
-      divTaskContentItem.appendChild(checkbox);
+      cardSection.insertBefore(newDiv, addTask);
+      newDiv.appendChild(newP);
+      newDiv.appendChild(taskOptions);
+      taskOptions.appendChild(taskOptionEdit);
+      taskOptions.appendChild(taskOptionMove);
+      taskOptions.appendChild(taskOptionDelete);
 
-      const p = document.createElement("p");
-      p.setAttribute("id", "p-" + index);
-      p.innerText = taskItem.subtitle || "Tarefa sem texto";
-      divTaskContentItem.appendChild(p);
-
-      checkbox.addEventListener("change", () => {
-        if (checkbox.checked) {
-          p.style.textDecoration = "line-through";
-          p.style.fontStyle = "italic";
-        } else {
-          p.style.textDecoration = "none";
-          p.style.fontStyle = "normal";
+      const input = newP.querySelector("input");
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          newP.innerText = event.target.value;
+          saveTasks();
         }
+      });
+
+      input.addEventListener("blur", (event) => {
+        newP.innerText = event.target.value;
+        saveTasks();
       });
     });
   });
-};
-
-if (localStorage.getItem("tasks")) {
-  tasks = JSON.parse(localStorage.getItem("tasks"));
-  renderTasks();
 }
 
-/* cria uma nova tarefa */
-const addTask = (index) => {
-  const divTask = document.createElement("div");
-  divTask.classList.add("task");
-  divTask.setAttribute("draggable", true); //atributo para arrastar
-  divTask.setAttribute("id", "task-" + index); // identificador para arrastar e soltar
-
-  const h4 = document.createElement("h4");
-  h4.setAttribute("id", "h4-" + index);
-  const h4Text = prompt("Digite o título da tarefa:") || "Tarefa sem título";
-  h4.innerText = h4Text;
-
-  const i = document.createElement("i");
-  i.classList.add("fa-solid", "fa-pen-to-square");
-  i.addEventListener("click", () => {
-    const h4Text0 = prompt("Qual o título da tarefa?") || "sem título";
-    h4.innerText = h4Text0;
-
-    const taskId = "task-" + (cardItems[index].childElementCount - 4);
-    const taskIndex = tasks[index].tasks.findIndex(
-      (task) => task.id === taskId
-    );
-    tasks[index].tasks[taskIndex].title = h4Text0;
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  });
-
-  const divTaskContentItem = document.createElement("div");
-  divTaskContentItem.classList.add("taskContentItem");
-
-  const span = document.createElement("span");
-  span.classList.add("addTaskItem");
-
-  const iPlusAddTaskItem = document.createElement("i");
-  iPlusAddTaskItem.classList.add("fa-solid", "fa-plus");
-
-  iPlusAddTaskItem.addEventListener("click", () => {
-    const divBoxTask = document.createElement("div");
-    divBoxTask.classList.add("divBoxTask");
-
-    const input = document.createElement("input");
-    input.type = "checkbox";
-    input.setAttribute("id", "input-" + index);
-
-    const p = document.createElement("p");
-    p.setAttribute("id", "p-" + index);
-    const pText0 = p ? prompt("Qual a tarefa?") : "sem texto";
-    p.innerText = pText0;
-
-    divTask.appendChild(divTaskContentItem);
-    divTaskContentItem.appendChild(divBoxTask);
-    divBoxTask.appendChild(input);
-    divBoxTask.appendChild(p);
-
-    input.addEventListener("change", () => {
-      if (input.checked) {
-        p.style.textDecoration = "line-through";
-        p.style.fontStyle = "italic";
-      } else {
-        p.style.textDecoration = "none";
-        p.style.fontStyle = "normal";
-      }
-    });
-
-    const taskId = "task-" + (cardItems[index].childElementCount - 4);
-    const taskIndex = tasks[index].tasks.findIndex(
-      (task) => task.id === taskId
-    );
-    tasks[index].tasks[taskIndex].title = h4Text0;
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  });
-
-  let h1Element = cardItems[index].querySelector("h1");
-
-  if (h1Element) {
-    cardItems[index].insertBefore(divTask, h1Element.nextSibling);
-  } else {
-    cardItems[index].insertBefore(divTask, addButtons[index]);
-  }
-
-  divTask.appendChild(h4);
-  divTask.appendChild(i);
-  divTask.appendChild(divTaskContentItem);
-  divTask.appendChild(span);
-  span.appendChild(iPlusAddTaskItem);
-
-  divTask.addEventListener("dragstart", (event) => {
-    event.dataTransfer.setData("text/plain", event.target.id);
-  });
-
-  tasks.push({ title: h4Text, tasks: [] });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-};
-
-/* adiciona a nova tarefa dentro do quadro escolhido */
-addButtons.forEach((button, index) => {
-  button.addEventListener("click", () => {
-    addTask(index);
-
-    const taskId = "task-" + (cardItems[index].childElementCount - 3);
-    const taskTitle = document.getElementById(
-      "h4-" + (cardItems[index].childElementCount - 4)
-    ).innerText;
-
-    tasks[index].tasks.push({ id: taskId, title: taskTitle });
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  });
-});
-
-cards.forEach((card) => {
-  card.addEventListener("dragover", (event) => {
-    event.preventDefault();
-  });
-
-  card.addEventListener("drop", (event) => {
-    event.preventDefault();
-    const taskId = event.dataTransfer.getData("text/plain");
-    const task = document.getElementById(taskId);
-    const cardContent = event.target.closest(".card");
-    const cardItem = cardContent.querySelector(".cardItem");
-
-    cardItem.insertBefore(task, cardItem.querySelector(".addItem"));
-  });
-});
+loadTasks();

@@ -1,5 +1,6 @@
 :root {
   --gray: rgb(231, 231, 231);
+  --mediumGray: rgb(200, 200, 200);
   --darkGray: rgb(100, 100, 100);
   --white: rgb(245, 245, 245);
   --purple: rgb(120, 77, 155);
@@ -12,156 +13,150 @@
 
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-
   background: var(--gray);
 }
 
 main {
   display: flex;
-  min-height: inherit;
   width: 100vw;
-  min-width: 100vw;
-  max-width: 120vw;
-  background: var(--white);
 }
 
-.card {
+.card-0,
+.card-1,
+.card-2 {
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
-  min-width: calc(100% / 6);
-  margin-left: 0.3rem;
-  background: var(--gray);
-  border-radius: 15px 15px 0 0;
+  width: 17rem;
+  margin: 0.5rem;
+  padding: 10px;
+  border: 1px solid var(--darkGray);
+  border-radius: 10px;
+  background: var(--white);
 }
 
-.card h1 {
+header {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--white);
-  color: var(--darkGray);
+  justify-content: start;
+  width: 17rem;
+  padding: 0.5rem;
+}
+
+header h4 {
   font-weight: bold;
-  min-height: 3rem;
-  margin-bottom: 1rem;
-  border-radius: 15px 15px 0 0;
-  box-shadow: 0 -5px 5px 0 var(--gray);
-  text-transform: capitalize;
-  position: relative;
-}
-
-.card h1 .fa-pen-to-square {
-  font-size: 0.7em;
-  opacity: 0;
-  transition: 0.2s;
-  position: absolute;
-  right: 2rem;
-}
-
-.card h1:hover .fa-pen-to-square {
-  opacity: 1;
-  cursor: pointer;
-}
-
-.cardItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-}
-
-.addItem,
-.addTaskItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
-  background: var(--white);
   color: var(--darkGray);
-  border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
-  transition: 0.2s;
 }
 
-.addTaskItem {
-  margin-top: 0.5rem;
+.addItem {
+  display: flex;
+  align-items: center;
+  padding: 7px;
+  color: var(--darkGray);
+  border-radius: 7px;
+  font-size: 0.9em;
 }
-.addItem:hover,
-.addTaskItem:hover {
+.addItem i {
+  font-size: 0.8em;
+}
+.addItem p {
+  margin-left: 0.2rem;
+}
+
+.addItem:hover {
+  background: var(--gray);
   cursor: pointer;
-  opacity: 0.7;
-}
-
-.addItem:active,
-.addTaskItem:active {
-  opacity: 0.9;
 }
 
 .task {
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 90%;
+  justify-content: initial;
+  padding: 7px;
   margin-bottom: 0.5rem;
-  background: var(--white);
+
+  font-size: 0.8em;
+  width: 100%;
+  min-height: 2rem;
+  color: var(--darkGray);
+  border: 1px solid var(--gray);
+  box-shadow: 0px 0.5px 2px 0px gray;
   border-radius: 7px;
-  border: 1px solid var(--blue);
+
   position: relative;
 }
 
-.task h4 {
+/* div com options for task edit */
+.taskOptions {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  max-height: 1.5rem;
+  width: 25%;
+}
+
+.fa-pen,
+.fa-up-down-left-right,
+.fa-delete-left {
+  display: none;
+  opacity: 0;
+}
+
+.task:hover .fa-pen,
+.task:hover .fa-up-down-left-right,
+.task:hover .fa-delete-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--darkGray);
+  opacity: 1;
+}
+
+.task:hover .fa-pen:hover,
+.task:hover .fa-up-down-left-right:hover,
+.task:hover .fa-delete-left:hover {
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  padding: 0.25rem;
-  background: var(--blue);
-  color: var(--white);
-  text-transform: capitalize;
-  width: 100%;
-  border-radius: 3px 3px 0 0;
-  position: relative;
-}
-
-.task .fa-pen-to-square {
-  display: flex;
-  opacity: 0;
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  font-size: 0.7em;
-  background: var(--blue);
-  color: var(--white);
-  padding: 0.2rem;
-  border-radius: 50%;
-  border: 2px solid var(--white);
-  transition: 0.2s;
-}
-
-.task:hover .fa-pen-to-square {
+  color: var(--darkGray);
+  background: var(--gray);
+  margin: -6px;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 7px;
   opacity: 1;
+}
+
+.fa-pen:hover,
+.fa-up-down-left-right:hover,
+.fa-delete-left:hover {
   cursor: pointer;
+  top: 0rem;
 }
 
-.divBoxTask {
-  display: flex;
-  flex-direction: row;
-  min-width: 100%;
+input {
+  outline: 0;
+  border: 0;
 }
 
-.taskContentItem {
+.fa-up-down-left-right:hover .moveList {
   display: flex;
   flex-direction: column;
-  min-width: 100%;
-  padding: 0.2rem;
+  flex-wrap: nowrap;
+  padding: 0.5rem;
+  border-radius: 15px;
+  background: rgba(20, 20, 20, 0.7);
+  border: 1px solid;
 }
 
-.taskContentItem p {
-  margin-left: 0.25rem;
-  font-size: 0.8em;
+.moveList .cardList {
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
+  padding: 0.5rem;
+  flex-wrap: nowrap;
+  border-radius: 5px;
+}
+
+.cardList:hover {
+  background: var(--white);
+  color: var(--darkGray);
 }
