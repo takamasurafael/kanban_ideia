@@ -11,152 +11,108 @@
   --green: rgb(31, 177, 91);
 }
 
-body {
-  display: flex;
-  background: var(--gray);
-}
-
 main {
-  display: flex;
-  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr; /* primeira linha tem altura automática e a segunda ocupa o restante do espaço */
 }
 
-.card-0,
-.card-1,
-.card-2 {
+.header {
+  grid-column: 1 / -1; /* ocupa todas as colunas */
+  grid-row: 1 / 2;
+  height: 8rem;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+  border-radius: 5px;
+  font-size: 2.5em;
+  color: var(--white);
+  background: var(--green); /* utiliza a cor definida no :root */
+}
+
+.column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  width: 17rem;
+  grid-column: 1fr;
   margin: 0.5rem;
-  padding: 10px;
-  border: 1px solid var(--darkGray);
-  border-radius: 10px;
-  background: var(--white);
-}
-
-header {
-  display: flex;
-  justify-content: start;
-  width: 17rem;
-  padding: 0.5rem;
-}
-
-header h4 {
-  font-weight: bold;
+  border-radius: 5px;
+  background: var(--gray);
   color: var(--darkGray);
+}
+
+.column header {
+  display: flex;
 }
 
 .addItem {
   display: flex;
-  align-items: center;
-  padding: 7px;
-  color: var(--darkGray);
-  border-radius: 7px;
-  font-size: 0.9em;
-}
-.addItem i {
-  font-size: 0.8em;
-}
-.addItem p {
-  margin-left: 0.2rem;
-}
-
-.addItem:hover {
-  background: var(--gray);
-  cursor: pointer;
-}
-
-.task {
-  display: flex;
-  justify-content: initial;
-  padding: 7px;
-  margin-bottom: 0.5rem;
-
-  font-size: 0.8em;
-  width: 100%;
-  min-height: 2rem;
-  color: var(--darkGray);
-  border: 1px solid var(--gray);
-  box-shadow: 0px 0.5px 2px 0px gray;
-  border-radius: 7px;
-
-  position: relative;
-}
-
-/* div com options for task edit */
-.taskOptions {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
-  max-height: 1.5rem;
-  width: 25%;
-}
-
-.fa-pen,
-.fa-up-down-left-right,
-.fa-delete-left {
-  display: none;
-  opacity: 0;
-}
-
-.task:hover .fa-pen,
-.task:hover .fa-up-down-left-right,
-.task:hover .fa-delete-left {
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--darkGray);
-  opacity: 1;
+  grid-column: 1 / -1;
+  height: 4rem;
+  margin: 0 0.5rem 0.5rem 0.5rem;
+  border-radius: 5px;
+  background: var(--darkGray);
+  color: var(--white);
 }
 
-.task:hover .fa-pen:hover,
-.task:hover .fa-up-down-left-right:hover,
-.task:hover .fa-delete-left:hover {
-  display: flex;
-  justify-content: center;
-  color: var(--darkGray);
-  background: var(--gray);
-  margin: -6px;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 7px;
-  opacity: 1;
-}
-
-.fa-pen:hover,
-.fa-up-down-left-right:hover,
-.fa-delete-left:hover {
-  cursor: pointer;
-  top: 0rem;
-}
-
-input {
+.addItem input {
   outline: 0;
   border: 0;
+  padding: 1rem;
+  margin-left: 0.5rem;
+  width: 35rem;
+  border-radius: 5px;
+  background: var(--gray);
 }
 
-.fa-up-down-left-right:hover .moveList {
+.addItem div {
   display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.addItem div i {
+  margin-right: 0.5rem;
+}
+
+/* EDIÇÃO PENDENTE */
+.task {
+  display: flex;
+  justify-content: space-between;
+  min-width: 100%;
   padding: 0.5rem;
-  border-radius: 15px;
-  background: rgba(20, 20, 20, 0.7);
+  margin: 0.5rem;
   border: 1px solid;
-}
-
-.moveList .cardList {
-  display: flex;
-  flex-direction: column;
-  color: var(--white);
-  padding: 0.5rem;
-  flex-wrap: nowrap;
   border-radius: 5px;
 }
 
-.cardList:hover {
-  background: var(--white);
-  color: var(--darkGray);
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(100, 100, 100, 0.7);
+  color: white;
+}
+
+.modal-options {
+  text-align: center;
+  min-width: 10rem;
+  background: var(--darkGray);
+  border: 1px solid var(--mediumGray);
+  margin: 0.1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
 }

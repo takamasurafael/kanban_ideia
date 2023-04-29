@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kanban Project Ideia</title>
+    <title>Kanban Board</title>
 
     <!-- style -->
     <link rel="stylesheet" href="./css/main.css" />
@@ -24,36 +24,35 @@
   </head>
   <body>
     <main>
-      <section class="card-0">
+      <header class="header">
+        <h3>Kanban Board</h3>
+      </header>
+      <section class="column backlog">
         <header>
-          <h4 class="titleCard">Para fazer</h4>
+          <h4 class="titleCard">Backlog</h4>
         </header>
-        <span class="addItem">
-          <i class="fa-solid fa-plus"></i>
-          <p>Adicionar um cartão</p>
-        </span>
       </section>
 
-      <section class="card-1">
+      <section class="column in-progress">
         <header>
-          <h4 class="titleCard">Em andamento</h4>
+          <h4 class="titleCard">In Progress</h4>
         </header>
-        <span class="addItem">
-          <i class="fa-solid fa-plus"></i>
-          <p>Adicionar um cartão</p>
-        </span>
       </section>
 
-      <section class="card-2">
+      <section class="column done">
         <header>
-          <h4 class="titleCard">Finalizado</h4>
+          <h4 class="titleCard">Done</h4>
         </header>
+      </section>
 
-        <span class="addItem">
+      <span class="addItem">
+        <input type="text" id="input-add" />
+        <div class="btn-addTask">
           <i class="fa-solid fa-plus"></i>
           <p>Adicionar um cartão</p>
-        </span>
-      </section>
+        </div>
+      </span>
     </main>
   </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </html>
